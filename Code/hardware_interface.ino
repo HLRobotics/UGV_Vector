@@ -7,8 +7,8 @@ WiFiClient client;
 WiFiServer server(80);
  
 /* WIFI settings */
-const char* ssid = "GNXS-2.4G-A15067";
-const char* password = "mrf37600";
+const char* ssid = "wifi access point name";
+const char* password = "password";
  
 /* data received from application */
 String  data = "";
