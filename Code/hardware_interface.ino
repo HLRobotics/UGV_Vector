@@ -13,12 +13,13 @@ const char* password = "mrf37600";
 String  data = "";
  
 /* define L298N or L293D motor control pins */
-int leftMotorForward = 5;     /* GPIO2(D4) -> IN3   */
+int leftMotorForward = 4;     /* GPIO2(D4) -> IN3   */
 int rightMotorForward = 12;   /* GPIO15(D8) -> IN1  */
-int leftMotorBackward = 4;    /* GPIO0(D3) -> IN4   */
+int leftMotorBackward = 0;    /* GPIO0(D3) -> IN4   */
 int rightMotorBackward = 13;  /* GPIO13(D7) -> IN2  */
-int leftEnable=16;
+int leftEnable=5;
 int rightEnable=14;
+int speed=75;
  
  
 void setup()
@@ -55,8 +56,7 @@ void setup()
  
 void loop()
 {
-analogWrite(rightEnable,255);
-analogWrite(leftEnable,255);
+
 
   /* If the server available, run the "checkClient" function */
   client = server.available();
@@ -67,15 +67,20 @@ analogWrite(leftEnable,255);
   /************************ Run function according to incoming data from application *************************/
  
   /* If the incoming data is "forward", run the "MotorForward" function */
-  if (data == "forward") MotorForward();
+  if (data == "w") MotorForward();
   /* If the incoming data is "backward", run the "MotorBackward" function */
-  else if (data == "backward") MotorBackward();
+  else if (data == "s") MotorBackward();
   /* If the incoming data is "left", run the "TurnLeft" function */
-  else if (data == "left") TurnLeft();
+  else if (data == "a") TurnLeft();
   /* If the incoming data is "right", run the "TurnRight" function */
-  else if (data == "right") TurnRight();
+  else if (data == "d") TurnRight();
   /* If the incoming data is "stop", run the "MotorStop" function */
-  else if (data == "stop") MotorStop();
+  else if (data == "x") MotorStop();
+  /* controlling the speed according to input */
+  if (data.toInt() > 50 || data.toInt() <255)
+  {
+     speedController(data.toInt());
+  }
 }
  
 /********************************************* FORWARD *****************************************************/
@@ -85,6 +90,7 @@ void MotorForward(void)
   digitalWrite(rightMotorForward, HIGH);
   digitalWrite(leftMotorBackward, LOW);
   digitalWrite(rightMotorBackward, LOW);
+  speedController(speed);
   Serial.println("Moving Forward");
 }
  
@@ -95,6 +101,7 @@ void MotorBackward(void)
   digitalWrite(rightMotorBackward, HIGH);
   digitalWrite(leftMotorForward, LOW);
   digitalWrite(rightMotorForward, LOW);
+  speedController(speed);
   Serial.println("Moving Backward");
 }
  
@@ -105,6 +112,7 @@ void TurnLeft(void)
   digitalWrite(rightMotorForward, HIGH);
   digitalWrite(rightMotorBackward, LOW);
   digitalWrite(leftMotorBackward, HIGH);
+  speedController(speed);
   Serial.println("Moving Left");
 }
  
@@ -115,6 +123,7 @@ void TurnRight(void)
   digitalWrite(rightMotorForward, LOW);
   digitalWrite(rightMotorBackward, HIGH);
   digitalWrite(leftMotorBackward, LOW);
+  speedController(speed);
   Serial.println("Moving Right");
 }
  
@@ -125,7 +134,8 @@ void MotorStop(void)
   digitalWrite(leftMotorBackward, LOW);
   digitalWrite(rightMotorForward, LOW);
   digitalWrite(rightMotorBackward, LOW);
-   Serial.println("Stop");
+  speedController(0);
+  Serial.println("Stop");
 }
  
 /********************************** RECEIVE DATA FROM the APP ******************************************/
@@ -136,4 +146,10 @@ String checkClient (void)
   request.remove(0, 5);
   request.remove(request.length() - 9, 9);
   return request;
+}
+
+void speedController(int speed)
+{
+  analogWrite(rightEnable,speed);
+  analogWrite(leftEnable,speed);
 }
