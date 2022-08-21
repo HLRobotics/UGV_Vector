@@ -1,3 +1,4 @@
+/*Author:Akhil Jacob*/
 /* include library */
 #include <ESP8266WiFi.h>
  
@@ -147,6 +148,8 @@ String checkClient (void)
   request.remove(request.length() - 9, 9);
   return request;
 }
+
+/********************************** SPEED CONTROLLER ******************************************/
 
 void speedController(int speed)
 {
