@@ -1,4 +1,11 @@
 {
     "arduino.enableUSBDetection": true,
-    "arduino.path": "C:\\Program Files (x86)\\Arduino\\"
+    "arduino.path": "C:\\Program Files (x86)\\Arduino\\",
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=cv2"
+    ]
 }
