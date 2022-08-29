@@ -1,5 +1,4 @@
 """ugv_console_controller_helper"""
-
 from ugv_controller_constants import *
 import requests
 import time
@@ -9,14 +8,18 @@ class UGVControllerHelper:
     """UGV Controller Helper"""
 
     def __init__(self):
+        """initializing the repository"""
         self._ip_address = UGV_IP
         self.speed = UGV_DEFAULT_SPEED
 
     def url_generator(self, control):
-        generated_url = "http://" + self._ip_address + control
-        requests.post(generated_url)
-        time.sleep(0.1)
-        requests.post(self.speed)
+        try:
+            generated_url = "http://" + self._ip_address + "/" + control
+            requests.post(generated_url)
+            time.sleep(0.1)
+            requests.post(self.speed)
+        except:
+            pass
 
     def move_forward(self):
         """move forward"""
@@ -46,9 +49,11 @@ class UGVControllerHelper:
     def increase_speed(self):
         """increase speed"""
         self.speed = self.speed + 10
-        requests.post(self.speed)
+        print("velocity => ", self.speed)
+        self.url_generator(self.speed)
 
     def decrease_speed(self):
         """decrease soeed"""
         self.speed = self.speed - 10
-        requests.post(self.speed)
+        print("velocity => ", self.speed)
+        self.url_generator(self.speed)
