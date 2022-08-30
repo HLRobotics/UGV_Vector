@@ -14,10 +14,8 @@ class UGVControllerHelper:
 
     def url_generator(self, control):
         try:
-            generated_url = "http://" + self._ip_address + "/" + control
-            requests.post(generated_url)
-            time.sleep(0.1)
-            requests.post(self.speed)
+            generated_url = "http://" + self._ip_address + "/" + str(control)
+            requests.get(generated_url)
         except:
             pass
 

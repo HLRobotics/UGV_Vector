@@ -13,6 +13,7 @@ class UGVConsole:
         self.ugv_key = KeyboarController()
 
     def load_welcome_note(self):
+        """load welcome note"""
         print(HLROBOTICS_TITLE)
         print(UGV_CONTROL_SYSTEM_TITLE)
 
