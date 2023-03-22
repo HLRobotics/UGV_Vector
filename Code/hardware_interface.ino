@@ -67,15 +67,15 @@ void loop()
  
   /************************ Run function according to incoming data from application *************************/
  
-  /* If the incoming data is "forward", run the "MotorForward" function */
+  /* If the incoming data is "w", run the "MotorForward" function */
   if (data == "w") MotorForward();
-  /* If the incoming data is "backward", run the "MotorBackward" function */
+  /* If the incoming data is "s", run the "MotorBackward" function */
   else if (data == "s") MotorBackward();
-  /* If the incoming data is "left", run the "TurnLeft" function */
+  /* If the incoming data is "a", run the "TurnLeft" function */
   else if (data == "a") TurnLeft();
-  /* If the incoming data is "right", run the "TurnRight" function */
+  /* If the incoming data is "d", run the "TurnRight" function */
   else if (data == "d") TurnRight();
-  /* If the incoming data is "stop", run the "MotorStop" function */
+  /* If the incoming data is "x", run the "MotorStop" function */
   else if (data == "x") MotorStop();
   /* controlling the speed according to input */
   if (data.toInt() > 50 || data.toInt() <255)

@@ -9,7 +9,7 @@ class UGVControllerHelper:
 
     def __init__(self):
         """initializing the repository"""
-        self._ip_address = UGV_IP
+        self._ip_address = input("Enter the IP address: ")
         self.speed = UGV_DEFAULT_SPEED
 
     def url_generator(self, control):
@@ -46,12 +46,18 @@ class UGVControllerHelper:
 
     def increase_speed(self):
         """increase speed"""
-        self.speed = self.speed + 10
-        print("velocity => ", self.speed)
-        self.url_generator(self.speed)
+        if self.speed <= 120:
+            self.speed = self.speed + 10
+            print("velocity => ", self.speed)
+            self.url_generator(self.speed)
+        else:
+            display_message(MAX_SPEED_MESSAGE)
 
     def decrease_speed(self):
-        """decrease soeed"""
-        self.speed = self.speed - 10
-        print("velocity => ", self.speed)
-        self.url_generator(self.speed)
+        """decrease seed"""
+        if self.speed <= 0:
+            self.speed = self.speed - 10
+            print("velocity => ", self.speed)
+            self.url_generator(self.speed)
+        else:
+            display_message(MIN_SPEED_MESSAGE)
