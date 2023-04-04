@@ -9,7 +9,7 @@ class UGVControllerHelper:
 
     def __init__(self):
         """initializing the repository"""
-        self._ip_address = "192.168.1.1"
+        self._ip_address = UGV_IP_ADDRESS
         self.speed = UGV_DEFAULT_SPEED
 
     def url_generator(self, control):
