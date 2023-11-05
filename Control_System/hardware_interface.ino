@@ -1,26 +1,31 @@
 /*Author:Akhil Jacob*/
 /* include library */
 #include <ESP8266WiFi.h>
+#include <Servo.h>
  
 /* define port */
 WiFiClient client;
 WiFiServer server(80);
  
 /* WIFI settings */
-const char* ssid = "wifi access point name";
-const char* password = "password";
+const char* ssid = "GNXS-5G-A15067";
+const char* password = "mrf37600";
  
 /* data received from application */
 String  data = "";
  
 /* define L298N or L293D motor control pins */
-int leftMotorForward = 4;     /* GPIO2(D4) -> IN3   */
-int rightMotorForward = 12;   /* GPIO15(D8) -> IN1  */
-int leftMotorBackward = 0;    /* GPIO0(D3) -> IN4   */
-int rightMotorBackward = 13;  /* GPIO13(D7) -> IN2  */
-int leftEnable=5;
-int rightEnable=14;
-int speed=75;
+int leftMotorForward = 16;      /* GPIO16(D0) -> IN3   */
+int rightMotorForward = 12;     /* GPIO12(D6) -> IN1  */
+int leftMotorBackward = 15;     /* GPIO15(D8) -> IN4   */
+int rightMotorBackward = 13;    /* GPIO13(D7) -> IN2  */
+int leftEnable=2;               /* GPIO2(D4) -> IN2  */
+int rightEnable=14;             /* GPIO14(D5) -> IN2  */
+int speed=75;                   
+
+/* define servo */
+Servo baseServo;
+Servo panServo;
  
  
 void setup()
@@ -34,6 +39,9 @@ void setup()
   pinMode(leftEnable,OUTPUT);
   pinMode(rightEnable,OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  baseServo.attach(4);      /* GPIO4(D2) -> IN2  */
+  panServo.attach(0);       /* GPIO0(D3) -> IN2  */
+
   //connect to your local wi-fi network
   WiFi.begin(ssid, password);
  
