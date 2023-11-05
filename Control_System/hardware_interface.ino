@@ -21,7 +21,8 @@ int leftMotorBackward = 15;     /* GPIO15(D8) -> IN4   */
 int rightMotorBackward = 13;    /* GPIO13(D7) -> IN2  */
 int leftEnable=2;               /* GPIO2(D4) -> IN2  */
 int rightEnable=14;             /* GPIO14(D5) -> IN2  */
-int speed=75;                   
+int speed=75;   
+int servo_default_position=90;                
 
 /* define servo */
 Servo baseServo;
@@ -86,10 +87,11 @@ void loop()
   /* If the incoming data is "x", run the "MotorStop" function */
   else if (data == "x") MotorStop();
   /* controlling the speed according to input */
-  if (data.toInt() > 50 || data.toInt() <255)
+  if (data.toInt() > 50 || data.toInt() <120)
   {
      speedController(data.toInt());
   }
+  /* Servo controller pending */
 }
  
 /********************************************* FORWARD *****************************************************/
@@ -163,4 +165,12 @@ void speedController(int speed)
 {
   analogWrite(rightEnable,speed);
   analogWrite(leftEnable,speed);
+}
+
+/********************************** BASE SERVO POSITION CONTROLLER ******************************************/
+
+void servoController(int base_angle,int pan_angle)
+{
+  baseServo.write(base_angle);
+  panServo.write(pan_angle);
 }
