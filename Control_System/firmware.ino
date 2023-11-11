@@ -8,7 +8,7 @@ WiFiClient client;
 WiFiServer server(80);
  
 /* WIFI settings */
-const char* ssid = "GNXS-5G-A15067";
+const char* ssid = "GNXS-2.4G-A15067";
 const char* password = "mrf37600";
  
 /* data received from application */
@@ -22,7 +22,11 @@ int rightMotorBackward = 13;    /* GPIO13(D7) -> IN2  */
 int leftEnable=2;               /* GPIO2(D4) -> IN2  */
 int rightEnable=14;             /* GPIO14(D5) -> IN2  */
 int speed=75;   
-int servo_default_position=90;                
+int servo_default_position=90;         
+int current_angle=0;    
+int angle=0;   
+String processed_string="";
+String processed_string_2="";
 
 /* define servo */
 Servo baseServo;
@@ -50,9 +54,12 @@ void setup()
   while (WiFi.status() != WL_CONNECTED)
   {
     Serial.print(".");
+    digitalWrite(LED_BUILTIN, HIGH);
     // Connect to WPA/WPA2 network. Change this line if using open or WEP  network:
     // Wait 3 seconds for connection:
-    delay(3000);
+    delay(300);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(300);
   }
  
   Serial.println("");
@@ -81,9 +88,9 @@ void loop()
   /* If the incoming data is "s", run the "MotorBackward" function */
   else if (data == "s") MotorBackward();
   /* If the incoming data is "a", run the "TurnLeft" function */
-  else if (data == "a") TurnLeft();
+  else if (data == "a") TurnRight();
   /* If the incoming data is "d", run the "TurnRight" function */
-  else if (data == "d") TurnRight();
+  else if (data == "d") TurnLeft();
   /* If the incoming data is "x", run the "MotorStop" function */
   else if (data == "x") MotorStop();
   /* controlling the speed according to input */
@@ -92,6 +99,23 @@ void loop()
      speedController(data.toInt());
   }
   /* Servo controller pending */
+  processed_string=data.substring(0, 1);
+  if(processed_string=="B")
+  {
+    Serial.println("Hit B");
+    processed_string_2=data.substring(1);
+    angle=processed_string_2.toInt();
+    Serial.println(angle);
+    baseServoController(angle);
+  }
+  if(processed_string=="P")
+  {
+    Serial.println("Hit P");
+    processed_string_2=data.substring(1);
+    angle=processed_string_2.toInt();
+    Serial.println(angle);
+    panServoController(angle);
+  }
 }
  
 /********************************************* FORWARD *****************************************************/
@@ -169,8 +193,12 @@ void speedController(int speed)
 
 /********************************** BASE SERVO POSITION CONTROLLER ******************************************/
 
-void servoController(int base_angle,int pan_angle)
+void baseServoController(int base_angle)
 {
   baseServo.write(base_angle);
+}
+
+void panServoController(int pan_angle)
+{
   panServo.write(pan_angle);
 }

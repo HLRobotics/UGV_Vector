@@ -11,6 +11,7 @@ class UGVControllerHelper:
         """initializing the repository"""
         self._ip_address = UGV_IP_ADDRESS
         self.speed = UGV_DEFAULT_SPEED
+        self.default_angle = UGV_DEFAULT_ANGLE
 
     def url_generator(self, control):
         try:
@@ -61,3 +62,27 @@ class UGVControllerHelper:
             self.url_generator(self.speed)
         else:
             display_message(MIN_SPEED_MESSAGE)
+
+    def control_base_servo_increase_angle(self):
+        """control base servo increase angle"""
+        self.default_angle = self.default_angle + 10
+        print(self.default_angle)
+        self.url_generator("B" + str(self.default_angle))
+
+    def control_base_servo_decrease_angle(self):
+        """control base servo increase angle"""
+        self.default_angle = self.default_angle - 10
+        print(self.default_angle)
+        self.url_generator("B" + str(self.default_angle))
+
+    def control_vertical_servo_increase_angle(self):
+        """control base servo increase angle"""
+        self.default_angle = self.default_angle + 10
+        print(self.default_angle)
+        self.url_generator("P" + str(self.default_angle))
+
+    def control_vertical_servo_decrease_angle(self):
+        """control base servo increase angle"""
+        self.default_angle = self.default_angle - 10
+        print(self.default_angle)
+        self.url_generator("P" + str(self.default_angle))

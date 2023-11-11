@@ -1,6 +1,7 @@
 """ugv_controller_constants.py"""
 UGV_IP_ADDRESS = str(input("Enter the UGV IP Address: "))
 UGV_DEFAULT_SPEED = 50
+UGV_DEFAULT_ANGLE = 90
 FORWARD = "w"
 BACKWARD = "s"
 LEFT = "d"

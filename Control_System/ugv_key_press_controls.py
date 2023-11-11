@@ -28,6 +28,14 @@ class KeyboarController:
                 self.controller_helper.increase_speed()
             if key.char == "-":
                 self.controller_helper.decrease_speed()
+            if key.char == "i":
+                self.controller_helper.control_base_servo_increase_angle()
+            if key.char == "o":
+                self.controller_helper.control_base_servo_decrease_angle()
+            if key.char == "y":
+                self.controller_helper.control_vertical_servo_increase_angle()
+            if key.char == "u":
+                self.controller_helper.control_vertical_servo_decrease_angle()
 
         except AttributeError:
             print("special key pressed: {0}".format(key))
@@ -41,5 +49,8 @@ class KeyboarController:
 
     def start_listening(self):
         """start listening"""
-        with keyboard.Listener(on_press=KeyboarController().on_press, on_release=KeyboarController().on_release) as listener:
+        with keyboard.Listener(
+            on_press=KeyboarController().on_press,
+            on_release=KeyboarController().on_release,
+        ) as listener:
             listener.join()

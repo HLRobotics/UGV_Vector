@@ -3,3 +3,4 @@ opencv-python
 opencv-contrib-python
 db-sqlite3
 firebase
+pynput
