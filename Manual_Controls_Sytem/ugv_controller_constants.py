@@ -15,6 +15,8 @@ UGV_MAX_SPEED = 120
 UGV_MIN_SPEED = 50
 MAX_SPEED_MESSAGE = "[ Reached Maximum Speed ]"
 MIN_SPEED_MESSAGE = "[ Reached Minimum Speed ]"
+MAX_LIMIT_MESSAGE = "[Reached the Maximum]"
+MIN_LIMIT_MESSAGE = "[Reached the Minimum]"
 
 """COMMON FUNCTIONALITY"""
 

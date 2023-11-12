@@ -19,7 +19,6 @@ This is an opensorce project on building an indoor unmanned ground vehicle with 
 * IOT
 * Python
 * Embedded C
-* ROS (in future)
 * Linux Shell Scripting
 * Networking protocols
 

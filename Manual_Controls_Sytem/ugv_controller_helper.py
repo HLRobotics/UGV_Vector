@@ -66,23 +66,35 @@ class UGVControllerHelper:
     def control_base_servo_increase_angle(self):
         """control base servo increase angle"""
         self.default_angle = self.default_angle + 10
-        print(self.default_angle)
-        self.url_generator("B" + str(self.default_angle))
+        if self.default_angle >= 180:
+            print(MAX_LIMIT_MESSAGE)
+        else:
+            print(self.default_angle)
+            self.url_generator("B" + str(self.default_angle))
 
     def control_base_servo_decrease_angle(self):
         """control base servo increase angle"""
         self.default_angle = self.default_angle - 10
-        print(self.default_angle)
-        self.url_generator("B" + str(self.default_angle))
+        if self.default_angle <= 0:
+            print(MIN_LIMIT_MESSAGE)
+        else:
+            print(self.default_angle)
+            self.url_generator("B" + str(self.default_angle))
 
     def control_vertical_servo_increase_angle(self):
         """control base servo increase angle"""
         self.default_angle = self.default_angle + 10
-        print(self.default_angle)
-        self.url_generator("P" + str(self.default_angle))
+        if self.default_angle >= 180:
+            print(MAX_LIMIT_MESSAGE)
+        else:
+            print(self.default_angle)
+            self.url_generator("P" + str(self.default_angle))
 
     def control_vertical_servo_decrease_angle(self):
         """control base servo increase angle"""
         self.default_angle = self.default_angle - 10
         print(self.default_angle)
-        self.url_generator("P" + str(self.default_angle))
+        if self.default_angle <= 0:
+            print(MIN_LIMIT_MESSAGE)
+        else:
+            self.url_generator("P" + str(self.default_angle))
