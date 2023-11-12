@@ -1,6 +1,6 @@
-"""ugv_console.py"""
-from ugv_controller_constants import *
-from ugv_key_press_controls import *
+"""console.py"""
+from movement_constants import *
+from movement_key_mappings import *
 
 
 class UGVConsole:
@@ -8,7 +8,7 @@ class UGVConsole:
 
     def __init__(self):
         """initializing"""
-        self.controller_helper = UGVControllerHelper()
+        self.movementEngine = MovementEngine()
         self.ugv_key = KeyboarController()
 
     def load_welcome_note(self):
@@ -27,6 +27,6 @@ if __name__ == "__main__":
     trigger.activate_console()
     while True:
         if len(UGV_IP_ADDRESS) > 0:
-            from ugv_controller_helper import *
+            from movement_engine import *
 
             break
