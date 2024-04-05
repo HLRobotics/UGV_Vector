@@ -1,6 +1,6 @@
 """ugv_key_press_controls.py"""
 from pynput import keyboard
-from ugv_controller_helper import *
+from movement_engine import *
 
 
 class KeyboarController:
@@ -8,34 +8,34 @@ class KeyboarController:
 
     def __init__(self):
         """initializing the class"""
-        self.controller_helper = UGVControllerHelper()
+        self.movementEngine = MovementEngine()
 
     def on_press(self, key):
         """key press action"""
         try:
             print("Alphanumeric key pressed: {0} ".format(key.char))
             if key.char == "w":
-                self.controller_helper.move_forward()
+                self.movementEngine.move_forward()
             if key.char == "s":
-                self.controller_helper.move_backward()
+                self.movementEngine.move_backward()
             if key.char == "a":
-                self.controller_helper.move_left()
+                self.movementEngine.move_left()
             if key.char == "d":
-                self.controller_helper.move_right()
+                self.movementEngine.move_right()
             if key.char == "x":
-                self.controller_helper.stop()
+                self.movementEngine.stop()
             if key.char == "+":
-                self.controller_helper.increase_speed()
+                self.movementEngine.increase_speed()
             if key.char == "-":
-                self.controller_helper.decrease_speed()
+                self.movementEngine.decrease_speed()
             if key.char == "i":
-                self.controller_helper.control_base_servo_increase_angle()
+                self.movementEngine.control_base_servo_increase_angle()
             if key.char == "o":
-                self.controller_helper.control_base_servo_decrease_angle()
+                self.movementEngine.control_base_servo_decrease_angle()
             if key.char == "y":
-                self.controller_helper.control_vertical_servo_increase_angle()
+                self.movementEngine.control_vertical_servo_increase_angle()
             if key.char == "u":
-                self.controller_helper.control_vertical_servo_decrease_angle()
+                self.movementEngine.control_vertical_servo_decrease_angle()
 
         except AttributeError:
             print("special key pressed: {0}".format(key))

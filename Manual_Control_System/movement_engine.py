@@ -1,19 +1,20 @@
-"""ugv_console_controller_helper"""
-from ugv_controller_constants import *
+"""ugv_control_engine"""
+from movement_constants import *
 import requests
-import time
 
 
-class UGVControllerHelper:
-    """UGV Controller Helper"""
+class MovementEngine:
+    """Movement Engine"""
 
     def __init__(self):
         """initializing the repository"""
         self._ip_address = UGV_IP_ADDRESS
         self.speed = UGV_DEFAULT_SPEED
         self.default_angle = UGV_DEFAULT_ANGLE
+        self.default_pan_angle = UGV_DEFAULT_PAN_ANGLE
 
     def url_generator(self, control):
+        """generate url for sending"""
         try:
             generated_url = "http://" + self._ip_address + "/" + str(control)
             requests.get(generated_url)
@@ -24,21 +25,25 @@ class UGVControllerHelper:
         """move forward"""
         control = FORWARD
         self.url_generator(control)
+        self.url_generator(self.speed)
 
     def move_backward(self):
         """move backward"""
         control = BACKWARD
         self.url_generator(control)
+        self.url_generator(self.speed)
 
     def move_left(self):
         """move left"""
         control = LEFT
         self.url_generator(control)
+        self.url_generator(self.speed)
 
     def move_right(self):
         """move right"""
         control = RIGHT
         self.url_generator(control)
+        self.url_generator(self.speed)
 
     def stop(self):
         """stop  moving"""
@@ -68,6 +73,7 @@ class UGVControllerHelper:
         self.default_angle = self.default_angle + 10
         if self.default_angle >= 180:
             print(MAX_LIMIT_MESSAGE)
+            self.default_angle = 180
         else:
             print(self.default_angle)
             self.url_generator("B" + str(self.default_angle))
@@ -77,24 +83,32 @@ class UGVControllerHelper:
         self.default_angle = self.default_angle - 10
         if self.default_angle <= 0:
             print(MIN_LIMIT_MESSAGE)
+            self.default_angle = 0
         else:
             print(self.default_angle)
             self.url_generator("B" + str(self.default_angle))
 
     def control_vertical_servo_increase_angle(self):
         """control base servo increase angle"""
-        self.default_angle = self.default_angle + 10
-        if self.default_angle >= 180:
+        self.default_pan_angle = self.default_pan_angle + 10
+        if self.default_pan_angle >= 180:
             print(MAX_LIMIT_MESSAGE)
+            self.default_pan_angle = 180
         else:
-            print(self.default_angle)
-            self.url_generator("P" + str(self.default_angle))
+            print(self.default_pan_angle)
+            self.url_generator("P" + str(self.default_pan_angle))
 
     def control_vertical_servo_decrease_angle(self):
         """control base servo increase angle"""
-        self.default_angle = self.default_angle - 10
-        print(self.default_angle)
-        if self.default_angle <= 0:
+        self.default_pan_angle = self.default_pan_angle - 10
+        print(self.default_pan_angle)
+        if self.default_pan_angle <= 0:
+            self.default_pan_angle = 0
             print(MIN_LIMIT_MESSAGE)
         else:
-            self.url_generator("P" + str(self.default_angle))
+            self.url_generator("P" + str(self.default_pan_angle))
+
+    def load_default(self):
+        """load default value"""
+        self.url_generator("B" + str(self.default_angle))
+        self.url_generator("P" + str(self.default_pan_angle))

@@ -1,7 +1,8 @@
-"""ugv_controller_constants.py"""
+"""movement_constants.py"""
 UGV_IP_ADDRESS = str(input("Enter the UGV IP Address: "))
 UGV_DEFAULT_SPEED = 50
-UGV_DEFAULT_ANGLE = 90
+UGV_DEFAULT_ANGLE = 80
+UGV_DEFAULT_PAN_ANGLE = 130
 FORWARD = "w"
 BACKWARD = "s"
 LEFT = "d"
@@ -17,6 +18,8 @@ MAX_SPEED_MESSAGE = "[ Reached Maximum Speed ]"
 MIN_SPEED_MESSAGE = "[ Reached Minimum Speed ]"
 MAX_LIMIT_MESSAGE = "[Reached the Maximum]"
 MIN_LIMIT_MESSAGE = "[Reached the Minimum]"
+BASE_SERVO_ANGLE_LIST = []
+SPEED_ESTIMATION_LIST = []
 
 """COMMON FUNCTIONALITY"""
 
